@@ -36,18 +36,18 @@ func main() {
 	}
 	fmt.Printf("%v\n", string(body))
 
-	var td []User
-	err = json.Unmarshal(body, &td)
-	fmt.Printf("%v\n", td)
+	var posts []User
+	err = json.Unmarshal(body, &posts)
 	if err != nil {
 		fmt.Println("error:", err)
 	}
 
-	for i, v := range td {
-		fmt.Printf("Index: %v\n", td[i])
-		fmt.Printf("UserId: %v\n", v.UserId)
-		fmt.Printf("Id: %v\n", v.Id)
-		fmt.Printf("Body: %v\n", v.Body)
-		fmt.Printf("Title: %v\n", v.Title)
+	for i, p := range posts {
+		fmt.Printf("%v\n", posts[i].UserId)
+		if p.UserId >= 7 {
+			fmt.Printf("Id: %v\n", p.Id)
+			fmt.Printf("Body: %v\n", p.Body)
+			fmt.Printf("Title: %v\n", p.Title)
+		}
 	}
 }
