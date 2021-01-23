@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-type Todo struct {
+type User struct {
 	UserId int    `json:"userId"`
 	Id     int    `json:"id"`
 	Title  string `json:"title"`
@@ -17,24 +17,32 @@ type Todo struct {
 }
 
 func main() {
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts")
+	// fmt.Print("Enter query: ")
+	// var q string
+	// fmt.Scanln(&q)
+
+	u := "https://jsonplaceholder.typicode.com/posts/"
+
+	resp, err := http.Get(u)
 	if err != nil {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
+
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("%v\n", string(body))
 
-	var td []Todo
+	var td []User
 	err = json.Unmarshal(body, &td)
 	fmt.Printf("%v\n", td)
 	if err != nil {
 		fmt.Println("error:", err)
 	}
+
 	for i, v := range td {
 		fmt.Printf("Index: %v\n", td[i])
 		fmt.Printf("UserId: %v\n", v.UserId)
